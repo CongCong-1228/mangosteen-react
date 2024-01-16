@@ -4,7 +4,7 @@ export const Welcome4: React.FC = () => {
     return (
         <>
             4
-            <NavLink to="/welcome/xxx">下一页</NavLink>
+            <NavLink to="/welcome/xxx">开始记账</NavLink>
         </>
     )
 }
