@@ -4,11 +4,11 @@ import welcome4 from '../assets/images/welcome4.svg'
 
 export const Welcome4: React.FC = () => {
     return (
-        <div>
-            <img src={welcome4} alt="welcome4" />
-            <h2 text-center fw-bold mt-10px>
-                会挣钱 <br />
-                还要会省钱
+        <div flex flex-col items-center justify-center>
+            <img src={welcome4} alt="welcome4" w-148px />
+            <h2 text-center>
+                云备份 <br />
+                小兔子们帮你管理预算
             </h2>
         </div>
     )

@@ -1,13 +1,16 @@
+import { RouteObject } from "react-router-dom";
+import { NotFoundPage } from "../components/NotFoundPage";
 import { WelcomeLayout } from "../layouts/WelcomeLayout";
 import { Welcome1 } from "../pages/Welcome1";
 import { Welcome2 } from "../pages/Welcome2";
 import { Welcome3 } from "../pages/Welcome3";
 import { Welcome4 } from "../pages/Welcome4";
 
-export const WelcomeRoutes = [
+export const WelcomeRoutes: RouteObject[] = [
     {
         path: 'welcome',
         element: <WelcomeLayout />,
+        errorElement: <NotFoundPage />,
         children: [
             {
                 path: '1',

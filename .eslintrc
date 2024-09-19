@@ -1,0 +1,18 @@
+{
+  "extends": "@antfu",
+  "rules": {
+    "no-unused-vars": "off",
+    "no-unused-imports": "off",
+    "curly": "off",
+    "@typescript-eslint/comma-dangle": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "vars": "local",
+        "args": "none",
+        "ignoreRestSiblings": true,
+        "caughtErrors": "none"
+      }
+    ]
+  }
+}

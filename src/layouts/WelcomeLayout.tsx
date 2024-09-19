@@ -8,7 +8,7 @@ export const WelcomeLayout: React.FC = () => {
     '/welcome/1': '/welcome/2',
     '/welcome/2': '/welcome/3',
     '/welcome/3': '/welcome/4',
-    '/welcome/4': '/welcome/xxx'
+    '/welcome/4': '/welcome/1'
   }
   const map = useRef<Record<string, ReactNode>>({});
   const location = useLocation();
@@ -26,7 +26,7 @@ export const WelcomeLayout: React.FC = () => {
     // 稳定状态
     enter: { transform: "translateX(0%)" },
     // 退出状态
-    leave: { transform: "translateX(-100%)", display: "none" },
+    leave: { transform: "translateX(-100%)" },
     config: { duration: 300 },
     onStart: () => {
       setExtraStyle({ position: 'absolute' });
@@ -36,23 +36,23 @@ export const WelcomeLayout: React.FC = () => {
     }
   });
   return (
-    <div className="bg-#5f34bf" h-screen flex flex-col pb-12px>
+    <div className="bg-#FFF9E1" h-screen flex flex-col py-12px>
       <header shrink-0 text-center>
-        <img src={logo} alt="logo" w-64px />
-        <h1 text="#D4D4De" text-32px>山竹记账</h1>
+        <img src={logo} alt="logo" w-64px rotate-270/>
+        <h1 text="#4A4A4A" text-32px>Yolk Accounting</h1>
       </header>
       <main grow-1 shrink-1 relative>
         {transitions((style, pathname) => (
-          <animated.div key={pathname} style={{ ...style, ...extraStyle }} w-full h-full p-16px flex>
-            <div grow-1 bg-white rounded rounded-8px flex justify-center items-center>
-              {map.current[pathname]}
-            </div>
-          </animated.div>
+            <animated.div key={pathname} style={{ ...style, ...extraStyle }} w-full h-full p-16px flex>
+              <div grow-1 bg="#FFD580" rounded rounded-8px flex justify-center items-center>
+                {map.current[pathname]}
+              </div>
+            </animated.div>
         ))}
       </main>
       <footer shrink-0 text-center text-24px  grid grid-cols-3 grid-rows-1>
-        <Link text-white style={{ gridArea: '1 / 2 / 2 / 3' }} to={linkMap[location.pathname]}>下一页</Link>
-        <Link text-white style={{ gridArea: '1 / 3 / 2 / 4' }} to="/welcome/xxx">跳过</Link>
+        <Link className="text-[var(--text-color-light)]" style={{ gridArea: '1 / 2 / 2 / 3' }} to={linkMap[location.pathname]}>Next Page</Link>
+        <Link className="text-[var(--text-color-light)]" style={{ gridArea: '1 / 3 / 2 / 4' }} to="/welcome/xxx">Skip</Link>
       </footer>
     </div>
   );
