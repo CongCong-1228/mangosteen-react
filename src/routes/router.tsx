@@ -1,13 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ErrorComponents } from "../components/ErrorComponents";
 import { MainLayout } from "../layouts/MainLayout";
 import { WelcomeRoutes } from "./welcomeRouter";
+import { RedirectToWelcome1 } from "../components/RedirectToWelcome1";
 
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <MainLayout />,
-        errorElement: <ErrorComponents />,
+        errorElement: <RedirectToWelcome1 />,
         children: WelcomeRoutes
     }
 ])

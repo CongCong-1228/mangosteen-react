@@ -1,5 +1,5 @@
 import { animated, useTransition } from "@react-spring/web";
-import React, { ReactNode, useRef } from "react";
+import React, { ReactNode, useRef, useState } from "react";
 import { Link, useLocation, useOutlet } from "react-router-dom";
 import logo from "../assets/images/logo.svg";
 
@@ -13,6 +13,7 @@ export const WelcomeLayout: React.FC = () => {
   const map = useRef<Record<string, ReactNode>>({});
   const location = useLocation();
   map.current[location.pathname] = useOutlet();
+  const [extraStyle, setExtraStyle] = useState<React.CSSProperties>({ position: 'relative' });
   console.log("local", location.pathname);
   const transitions = useTransition(location.pathname, {
     // 进入状态
@@ -27,6 +28,12 @@ export const WelcomeLayout: React.FC = () => {
     // 退出状态
     leave: { transform: "translateX(-100%)", display: "none" },
     config: { duration: 300 },
+    onStart: () => {
+      setExtraStyle({ position: 'absolute' });
+    },
+    onRest: () => {
+      setExtraStyle({ position: 'relative' });
+    }
   });
   return (
     <div className="bg-#5f34bf" h-screen flex flex-col pb-12px>
@@ -34,10 +41,12 @@ export const WelcomeLayout: React.FC = () => {
         <img src={logo} alt="logo" w-64px />
         <h1 text="#D4D4De" text-32px>山竹记账</h1>
       </header>
-      <main grow-1 shrink-1 bg-white m-16px rounded rounded-8px flex justify-center items-center>
+      <main grow-1 shrink-1 relative>
         {transitions((style, pathname) => (
-          <animated.div key={pathname} style={style}>
-           {map.current[pathname]}
+          <animated.div key={pathname} style={{ ...style, ...extraStyle }} w-full h-full p-16px flex>
+            <div grow-1 bg-white rounded rounded-8px flex justify-center items-center>
+              {map.current[pathname]}
+            </div>
           </animated.div>
         ))}
       </main>
