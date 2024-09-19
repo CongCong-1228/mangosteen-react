@@ -30,13 +30,13 @@ export const WelcomeLayout: React.FC = () => {
       transform:
         location.pathname === "/welcome/1/"
           ? "translateX(0%)"
-          : direction === 'left' || direction === 'up' ? "translateX(100%)" : "translateX(-100%)",
+          : direction === 'right' || direction === 'down' ? "translateX(-100%)" : "translateX(100%)",
     },
     // 稳定状态
     enter: { transform: "translateX(0%)" },
     // 退出状态
     leave: { transform: direction === 'left' || direction === 'up' ? "translateX(-100%)" : "translateX(100%)" },
-    config: { duration: 3000 },
+    config: { duration: 300 },
     onStart: () => {
       setExtraStyle({ position: 'absolute' });
     },
@@ -79,6 +79,7 @@ export const WelcomeLayout: React.FC = () => {
         ))}
       </main>
       <footer shrink-0 text-center text-24px  grid grid-cols-3 grid-rows-1>
+        {/* <Link className="text-[var(--text-color-light)]" style={{ gridArea: '1 / 1 / 1 / 1' }} to={lastLinkMap[location.pathname]}>Last Page</Link> */}
         <Link className="text-[var(--text-color-light)]" style={{ gridArea: '1 / 2 / 2 / 3' }} to={nextLinkMap[location.pathname]}>Next Page</Link>
         <Link className="text-[var(--text-color-light)]" style={{ gridArea: '1 / 3 / 2 / 4' }} to="/welcome/xxx">Skip</Link>
       </footer>
