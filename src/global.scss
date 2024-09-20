@@ -1,6 +1,6 @@
 :root {
   --un-shadow-color: #000;
-  --bg-color: #fff9e1;
+  --primary-color: #fff9e1;
   --welcome-bg-color: #ffd580;
   --text-color: #4a4a4a;
   --text-color-light: #9e9e9e;
@@ -35,4 +35,12 @@ html {
 
 a {
   text-decoration: none;
+}
+
+button {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+  font: inherit;
 }
