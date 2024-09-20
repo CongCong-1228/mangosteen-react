@@ -3,6 +3,7 @@ import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useOutlet } from "react-router-dom";
 import logo from "../assets/images/logo.svg";
 import { useSwipe } from "../hooks/useSwipe";
+import { useLocalStore } from "../stores/useLocalStore";
 
 export const WelcomeLayout: React.FC = () => {
   const nextLinkMap: Record<string, string> = {
@@ -24,6 +25,8 @@ export const WelcomeLayout: React.FC = () => {
   const [extraStyle, setExtraStyle] = useState<React.CSSProperties>({ position: 'relative' });
   const animating = useRef(false);
   const { direction } = useSwipe(mainRef);
+  const { setHasReadWelcomes } = useLocalStore()
+
   const transitions = useTransition(location.pathname, {
     // 进入状态
     from: {
@@ -44,10 +47,9 @@ export const WelcomeLayout: React.FC = () => {
       setExtraStyle({ position: 'relative' });
     }
   });
+
   map.current[location.pathname] = useOutlet();
 
-
-  console.log("direction", direction);
 
   useEffect(() => {
     if (direction === 'left' || direction === 'up') {
@@ -61,6 +63,10 @@ export const WelcomeLayout: React.FC = () => {
       animating.current = true;
     }
   }, [direction, location.pathname])
+
+  const onSkip = () => {
+    setHasReadWelcomes(true)
+  }
 
   return (
     <div className="bg-#FFF9E1" h-screen flex flex-col py-12px>
@@ -80,7 +86,7 @@ export const WelcomeLayout: React.FC = () => {
       <footer shrink-0 text-center text-24px  grid grid-cols-3 grid-rows-1>
         {/* <Link className="text-[var(--text-color-light)]" style={{ gridArea: '1 / 1 / 1 / 1' }} to={lastLinkMap[location.pathname]}>Last Page</Link> */}
         <Link className="text-[var(--text-color-light)]" style={{ gridArea: '1 / 2 / 2 / 3' }} to={nextLinkMap[location.pathname]}>Next Page</Link>
-        <Link className="text-[var(--text-color-light)]" style={{ gridArea: '1 / 3 / 2 / 4' }} to="/welcome/xxx">Skip</Link>
+        <Link className="text-[var(--text-color-light)]" style={{ gridArea: '1 / 3 / 2 / 4' }} to="/home" onClick={onSkip}>Skip</Link>
       </footer>
     </div>
   );

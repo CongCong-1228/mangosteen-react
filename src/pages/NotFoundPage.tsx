@@ -1,5 +1,3 @@
-
 export const NotFoundPage: React.FC = () => {
-    return <div>404</div>
+    return <div>当前路径不存在</div>
 }
-
