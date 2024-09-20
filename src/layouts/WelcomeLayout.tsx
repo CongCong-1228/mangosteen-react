@@ -29,13 +29,12 @@ export const WelcomeLayout: React.FC = () => {
     from: {
       transform:
         location.pathname === "/welcome/1/"
-          ? "translateX(0%)"
-          : direction === 'right' || direction === 'down' ? "translateX(-100%)" : "translateX(100%)",
+          ? "translateX(0%)" : (direction === "right" || direction === "down") ? "translateX(-100%)" : "translateX(100%)",
     },
     // 稳定状态
     enter: { transform: "translateX(0%)" },
     // 退出状态
-    leave: { transform: direction === 'left' || direction === 'up' ? "translateX(-100%)" : "translateX(100%)" },
+    leave: { transform: (direction === "right" || direction === "down") ? "translateX(100%)" : "translateX(-100%)" },
     config: { duration: 300 },
     onStart: () => {
       setExtraStyle({ position: 'absolute' });
