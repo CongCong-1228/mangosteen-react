@@ -5,7 +5,6 @@ export default [
   {
     url: "/api/v1/me",
     method: "get",
-    timeout: 400,
     response: () => {
       return {
         code: 0,
@@ -21,7 +20,6 @@ export default [
   {
     url: "/api/v1/items",
     method: "get",
-    timeout: 400,
     response: () => {
       return {
         code: 0,

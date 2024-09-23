@@ -3,31 +3,37 @@ import rabbit from "../assets/images/rabbit.svg";
 import add from "../assets/icons/add.svg";
 import { http } from "../request/http";
 import { useTitle } from "../hooks/useTitle";
+import { Navigate } from "react-router-dom";
+import { Loading } from "../components/Loading";
 interface Props {
   title: string;
 }
 export const Home: React.FC<Props> = (props) => {
-  console.log("document", document);
   useTitle(props.title);
-  const {
-    isLoading,
-    data: userData,
-    error,
-  } = useSWR("/api/v1/me", async (path) => await http.get<User>(path));
-  console.log("userData", userData);
 
-  const { data: itemsData, error: itemsError } = useSWR(
+  const {
+    isLoading: isUserLoading,
+    data: userData,
+    error: userError,
+  } = useSWR("/api/v1/me", async (path) => await http.get<User>(path));
+
+  const {
+    data: itemsData,
+    error: itemsError,
+    isLoading: isItemsLoading,
+  } = useSWR(
     userData ? "/api/v1/items" : null,
     async (path) => await http.get<Resources<Item>>(path)
   );
-  console.log("itemsData", itemsData);
 
   if (itemsData?.resources[0]) {
-    console.log("itemsData", itemsData);
+    return <Navigate to="/items" />;
   }
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error</div>;
+  if (isUserLoading || isItemsLoading) return <Loading />;
+
+  if (userError || itemsError) return <div>Error</div>;
+
   return (
     <div>
       <div flex items-center justify-center mt-16vh mb-16vh>

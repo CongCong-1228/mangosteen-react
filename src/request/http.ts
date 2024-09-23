@@ -9,9 +9,9 @@ export const http = {
   get<T>(url: string): Promise<T> {
     return new Promise((resolve, reject) => {
       axios
-        .get<T>(url)
+        .get<Resource<T>>(url)
         .then((response) => {
-          const { data } = response.data as any;
+          const { data } = response.data;
           resolve(data);
         })
         .catch((err) => {
