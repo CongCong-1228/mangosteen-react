@@ -5,6 +5,7 @@ export default [
   {
     url: "/api/v1/me",
     method: "get",
+    timeout: 300,
     response: () => {
       return {
         code: 0,

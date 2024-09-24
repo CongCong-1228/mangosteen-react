@@ -5,6 +5,7 @@ import { http } from "../request/http";
 import { useTitle } from "../hooks/useTitle";
 import { Navigate } from "react-router-dom";
 import { Loading } from "../components/Loading";
+import { Icon } from "../components/Icon";
 interface Props {
   title: string;
 }
@@ -27,10 +28,10 @@ export const Home: React.FC<Props> = (props) => {
   );
 
   if (itemsData?.resources[0]) {
-    return <Navigate to="/items" />;
+    // return <Navigate to="/items" />;
   }
 
-  if (isUserLoading || isItemsLoading) return <Loading />;
+  if (isUserLoading || isItemsLoading) return <Loading className="h-screen" />;
 
   if (userError || itemsError) return <div>Error</div>;
 
@@ -49,7 +50,7 @@ export const Home: React.FC<Props> = (props) => {
         </button>
       </div>
       <button className="flex items-center justify-center w-56px h-56px rounded-50% fixed bottom-0 right-16px bottom-16px bg-[var(--welcome-bg-color)]">
-        <img max-w="50%" max-h="50%" src={add} alt="add" />
+        <Icon className="h-48px w-48px color-white" name="add" />
       </button>
     </div>
   );

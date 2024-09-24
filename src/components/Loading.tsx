@@ -11,20 +11,19 @@ export const Loading: React.FC<LoadingProps> = ({
   className,
   message = "加载中...",
 }) => {
-  const spin = keyframes`
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(360deg);
-        }
-    `;
-  const Div = styled.div({
-    svg: {
-      animation: `${spin} 1.25s linear infinite`,
-    },
-  });
-
+  const Div = styled.div`
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    svg {
+      animation: spin 1.25s linear infinite;
+    }
+  `;
   return (
     <Div className={c("flex flex-col justify-center items-center", className)}>
       <Icon name="loading" className="w-128px h-128px" />
