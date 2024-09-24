@@ -45,6 +45,11 @@ button {
   font: inherit;
 }
 
+ul,
+li {
+  list-style: none;
+}
+
 .icon {
   fill: currentColor;
   width: 1.2em;
