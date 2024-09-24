@@ -8,6 +8,7 @@ import { Welcome4 } from "../pages/Welcome4";
 import { Root } from "../components/Root";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { Home } from "../pages/Home";
+import { Items } from "../pages/Items";
 
 export const router = createBrowserRouter([
   {
@@ -40,5 +41,9 @@ export const router = createBrowserRouter([
         element: <Welcome4 />,
       },
     ],
+  },
+  {
+    path: "/items",
+    element: <Items />,
   },
 ]);

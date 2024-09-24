@@ -28,7 +28,7 @@ export const Home: React.FC<Props> = (props) => {
   );
 
   if (itemsData?.resources[0]) {
-    // return <Navigate to="/items" />;
+    return <Navigate to="/items" />;
   }
 
   if (isUserLoading || isItemsLoading) return <Loading className="h-screen" />;
@@ -50,7 +50,7 @@ export const Home: React.FC<Props> = (props) => {
         </button>
       </div>
       <button className="flex items-center justify-center w-56px h-56px rounded-50% fixed bottom-0 right-16px bottom-16px bg-[var(--welcome-bg-color)]">
-        <Icon className="h-48px w-48px color-white" name="add" />
+        <Icon className="h-42px w-42px color-[var(--text-color)]" name="add" />
       </button>
     </div>
   );

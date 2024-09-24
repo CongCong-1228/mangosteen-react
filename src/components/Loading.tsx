@@ -26,10 +26,11 @@ export const Loading: React.FC<LoadingProps> = ({
   `;
   return (
     <Div className={c("flex flex-col justify-center items-center", className)}>
-      <Icon name="loading" className="w-128px h-128px" />
-      <p p-8px text-lg>
-        {message}
-      </p>
+      <Icon
+        name="loading"
+        className="w-48px h-48px color-[var(--text-color)]"
+      />
+      <p className="p-8px text-lg color-[var(--text-color)]">{message}</p>
     </Div>
   );
 };
