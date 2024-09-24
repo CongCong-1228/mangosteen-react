@@ -1,9 +1,10 @@
-import type { AttributifyAttributes } from '@unocss/preset-attributify'
+import type { AttributifyAttributes } from "@unocss/preset-attributify";
 
-declare module 'react' {
+declare module "react" {
   interface HTMLAttributes<T> extends AttributifyAttributes {
-    flex?: boolean,
-    border?: boolean,
-    justifyContent?: boolean
+    flex?: boolean;
+    border?: boolean;
+    justifyContent?: boolean;
+    b?: string;
   }
 }

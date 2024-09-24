@@ -8,7 +8,7 @@ import { Welcome4 } from "../pages/Welcome4";
 import { Root } from "../components/Root";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { Home } from "../pages/Home";
-import { Items } from "../pages/Items";
+import { Items } from "../pages/items/Items";
 
 export const router = createBrowserRouter([
   {
