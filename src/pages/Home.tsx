@@ -6,6 +6,7 @@ import { useTitle } from "../hooks/useTitle";
 import { Navigate } from "react-router-dom";
 import { Loading } from "../components/Loading";
 import { Icon } from "../components/Icon";
+import { AddItemFloatButton } from "../components/AddItemFloatButton";
 interface Props {
   title: string;
 }
@@ -49,9 +50,7 @@ export const Home: React.FC<Props> = (props) => {
           Start Account
         </button>
       </div>
-      <button className="flex items-center justify-center w-56px h-56px rounded-50% fixed bottom-0 right-16px bottom-16px bg-[var(--welcome-bg-color)]">
-        <Icon className="h-42px w-42px color-[var(--text-color)]" name="add" />
-      </button>
+      <AddItemFloatButton />
     </div>
   );
 };

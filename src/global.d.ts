@@ -28,6 +28,6 @@ interface Item {
   happen_at: string;
   created_at: string;
   updated_at: string;
-  kind: "expenses" | "income";
+  kind: "expenses" | "incomes";
   deleted_at?: string;
 }

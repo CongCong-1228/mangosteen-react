@@ -4,6 +4,9 @@ import { TopNav } from "../../components/TopNav";
 import { TimeRange, TimeRangePicker } from "../../components/TimeRangePicker";
 import { ItemsSummary } from "./ItemsSummary";
 import { ItemsList } from "./itemsList";
+import { AddItemFloatButton } from "../../components/AddItemFloatButton";
+import { TopMenu } from "../../components/TopMenu";
+import { useMenuStore } from "../../stores/useMenuStore";
 const Div = styled.div`
   background: linear-gradient(
     0deg,
@@ -12,6 +15,7 @@ const Div = styled.div`
   );
 `;
 export const Items: React.FC = () => {
+  const { visible } = useMenuStore();
   const [timeRange, setTimeRange] = useState<TimeRange>("thisMonth");
 
   const [items] = useState<Item[]>([
@@ -38,12 +42,14 @@ export const Items: React.FC = () => {
   ]);
   return (
     <div>
+      {visible && <TopMenu />}
       <Div>
         <TopNav />
         <TimeRangePicker value={timeRange} onChange={setTimeRange} />
       </Div>
       <ItemsSummary />
       <ItemsList items={items} />
+      <AddItemFloatButton />
     </div>
   );
 };
