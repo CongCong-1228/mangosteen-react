@@ -1,4 +1,5 @@
 interface Resource<T> {
+  code: number;
   data: T;
 }
 
