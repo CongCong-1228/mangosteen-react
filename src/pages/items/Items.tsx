@@ -15,7 +15,7 @@ const Div = styled.div`
   );
 `;
 export const Items: React.FC = () => {
-  const { visible } = useMenuStore();
+  const { visible, setVisible } = useMenuStore();
   const [timeRange, setTimeRange] = useState<TimeRange>("thisMonth");
 
   const [items] = useState<Item[]>([
@@ -42,7 +42,7 @@ export const Items: React.FC = () => {
   ]);
   return (
     <div>
-      {visible && <TopMenu />}
+      <TopMenu visible={visible} setVisible={setVisible} />
       <Div>
         <TopNav />
         <TimeRangePicker value={timeRange} onChange={setTimeRange} />
