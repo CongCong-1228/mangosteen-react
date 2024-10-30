@@ -24,7 +24,7 @@ export const Home: React.FC<Props> = (props) => {
     error: itemsError,
     isLoading: isItemsLoading,
   } = useSWR(
-    userData ? "/api/v1/items" : null,
+    userData ? "/api/v1/items?page=1" : null,
     async (path) => await http.get<Resources<Item>>(path)
   );
 
