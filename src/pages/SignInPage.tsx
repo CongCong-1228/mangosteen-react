@@ -64,7 +64,7 @@ export default function SignInPage() {
 
   const validateData = (key: keyof typeof formData) => {
     const filterRules = rules.filter((rule) => rule.key === key);
-    const errors = validate(formData, rules);
+    const errors = validate(formData, filterRules);
     setErrors(errors);
   };
 
@@ -74,7 +74,6 @@ export default function SignInPage() {
   ) => {
     e.preventDefault();
     setFormData({ ...formData, [key]: "" });
-    Promise.resolve().then(() => validateData(key));
   };
 
   return (
