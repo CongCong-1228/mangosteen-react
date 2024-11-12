@@ -1,8 +1,14 @@
 import useSWRInfinite from "swr/infinite";
 import { http } from "../../request/http";
-import { Loading } from "../../components/Loading";
+import { Loading } from "@/components/Loading";
+import styled from "styled-components";
 
 interface IProps {}
+
+const Div = styled.div`
+  padding: 16px;
+  text-align: center;
+`;
 
 const getKey = (
   pageIndex: number,
@@ -17,18 +23,27 @@ export const ItemsList: React.FC<IProps> = () => {
   const { data, error, isLoading, isValidating, mutate, size, setSize } =
     useSWRInfinite(
       getKey,
-      async (path) => await http.get<Resources<Item>>(path)
+      async (path) => await http.get<Resources<Item>>(path),
+      {
+        revalidateFirstPage: false,
+      }
     );
-  console.log("itemsList data", data);
-  console.log("itemsList size", size);
 
   const loadMore = () => {
     setSize(size + 1);
   };
 
   if (!data) {
-    return <Loading />;
+    return (
+      <div>
+        {error && <Div>数据加载失败，请刷新页面</Div>}
+        {isLoading && <Div>数据加载中...</Div>}
+      </div>
+    );
   } else {
+    const last = data[data.length - 1];
+    const { page, per_page, count } = last.pager;
+    const hasMore = (page - 1) * per_page + last.resources.length < count;
     return (
       <div>
         <ol>
@@ -71,11 +86,18 @@ export const ItemsList: React.FC<IProps> = () => {
             ))
           )}
         </ol>
-        <div p-16px>
-          <button j-btn onClick={loadMore}>
-            加载更多
-          </button>
-        </div>
+        {error && <Div>数据加载失败，请刷新页面</Div>}
+        {!hasMore ? (
+          <Div>没有更多数据了</Div>
+        ) : isLoading ? (
+          <Div>加载中...</Div>
+        ) : (
+          <Div>
+            <button j-btn onClick={loadMore}>
+              加载更多
+            </button>
+          </Div>
+        )}
       </div>
     );
   }

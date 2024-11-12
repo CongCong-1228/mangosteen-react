@@ -1,14 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
-import { WelcomeRoutes } from "./welcomeRouter";
-import { WelcomeLayout } from "../layouts/WelcomeLayout";
-import { Welcome1 } from "../pages/Welcome1";
-import { Welcome2 } from "../pages/Welcome2";
-import { Welcome3 } from "../pages/Welcome3";
-import { Welcome4 } from "../pages/Welcome4";
-import { Root } from "../components/Root";
-import { NotFoundPage } from "../pages/NotFoundPage";
-import { Home } from "../pages/Home";
-import { Items } from "../pages/items/Items";
+import { WelcomeLayout } from "@/layouts/WelcomeLayout";
+import { Welcome1 } from "@/pages/Welcome1";
+import { Welcome2 } from "@/pages/Welcome2";
+import { Welcome3 } from "@/pages/Welcome3";
+import { Welcome4 } from "@/pages/Welcome4";
+import { Root } from "@/components/Root";
+import { NotFoundPage } from "@/pages/NotFoundPage";
+import { Home } from "@/pages/Home";
+import { Items } from "@/pages/items/Items";
+import SignInPage from "@/pages/SignInPage";
 
 export const router = createBrowserRouter([
   {
@@ -47,8 +47,8 @@ export const router = createBrowserRouter([
     element: <Items />,
   },
   {
-    path: "/login_in",
-    element: <div>login_in</div>,
+    path: "/sign_in",
+    element: <SignInPage />,
   },
   {
     path: "/chart",

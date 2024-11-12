@@ -12,7 +12,6 @@ export const http = {
         .get<Resource<T>>(url)
         .then((response) => {
           const { data } = response.data;
-          console.log("data000000", response.data);
           resolve(data);
         })
         .catch((err) => {

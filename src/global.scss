@@ -1,16 +1,21 @@
 :root {
   --un-shadow-color: #000;
-  --primary-color: #fff9e1;
+  --primary-color: #f2e5a2;
   --welcome-bg-color: #ffd580;
   --text-color: #4a4a4a;
   --text-color-light: #9e9e9e;
+  --un-text-opacity: 1;
+  --button-color: #ffd580;
+  --icon-color: #4a4a4a;
+  --input-border-color: #f2994b;
+  --button-bg-color: #f2d64b;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Noto Serif SC", serif;
+  font-family: PingFang SC, Roboto, sans-serif;
 }
 
 *::after,
@@ -29,8 +34,10 @@ h6 {
   font-weight: normal;
 }
 
-html {
+html,
+body {
   font-size: 14px;
+  height: 100%;
 }
 
 a {
@@ -55,4 +62,8 @@ li {
   fill: currentColor;
   width: 1.2em;
   height: 1.2em;
+}
+
+#root {
+  height: 100%;
 }
