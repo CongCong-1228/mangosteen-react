@@ -7,9 +7,9 @@ interface IconProps {
   onClick?: () => void;
 }
 
-export const Icon: React.FC<IconProps> = ({ name, className, onClick }) => {
+export const Icon: React.FC<IconProps> = ({ name, className }) => {
   return (
-    <svg className={c(className, "icon")} onClick={onClick}>
+    <svg className={c(className, "icon")}>
       <use xlinkHref={`#${name}`} />
     </svg>
   );

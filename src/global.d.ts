@@ -1,3 +1,11 @@
+type JSONValue =
+  | string
+  | number
+  | boolean
+  | null
+  | { [k: string]: JSONValue }
+  | JSONValue[];
+
 interface Resource<T> {
   code: number;
   data: T;
