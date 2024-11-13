@@ -8,8 +8,16 @@ import {
   Rules,
   Data,
 } from "@/utils/validate";
-import { r } from "@faker-js/faker/dist/airline-C5Qwd7_q";
-import { MouseEvent, useEffect, useState } from "react";
+import { fi } from "@faker-js/faker/.";
+import { F, r } from "@faker-js/faker/dist/airline-C5Qwd7_q";
+import {
+  FormEvent,
+  FormEventHandler,
+  MouseEvent,
+  useEffect,
+  useState,
+} from "react";
+import { useNavigate } from "react-router-dom";
 
 type FormData = {
   email: string;
@@ -47,15 +55,23 @@ export default function SignInPage() {
     email: [],
     code: [],
   });
+  const nav = useNavigate();
 
-  const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (
+    e: FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
     const validationErrors = validate(formData, rules);
     setErrors(validationErrors);
     if (!hasError(validationErrors)) {
       try {
-        const res = await http.post("/api/v1/session", formData);
-        console.log("submit", res);
+        const { data } = await http.post("/api/v1/session", formData);
+        console.log("submit", data);
+        if (data.code === 0) {
+          // TODO: 保存jwt作为登录凭证
+          localStorage.setItem("jwt", data.data.jwt);
+          nav("/");
+        }
       } catch (error) {
         console.log("error", error);
       }
@@ -64,8 +80,8 @@ export default function SignInPage() {
 
   const validateData = (key: keyof typeof formData) => {
     const filterRules = rules.filter((rule) => rule.key === key);
-    const errors = validate(formData, filterRules);
-    setErrors(errors);
+    const filterErrors = validate(formData, filterRules);
+    setErrors({ ...errors, [key]: filterErrors[key] });
   };
 
   const clearFormData = (
@@ -76,17 +92,35 @@ export default function SignInPage() {
     setFormData({ ...formData, [key]: "" });
   };
 
+  const handleGetCode = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    validateData("email");
+    if (errors.email?.[0]) {
+      return;
+    }
+    // TODO: 发送验证码
+    console.log("get code");
+  };
+
   return (
-    <div h-full className="bg-[var(--primary-color)]" flex flex-col>
+    <div h-screen className="bg-[var(--primary-color)]" flex flex-col>
       <header min-h-8vh></header>
-      <main px-16px flex flex-col items-center justify-center gap-20 flex-1>
+      <main px-16px flex flex-col items-center justify-start gap-20 flex-1>
         <div flex flex-col items-center justify-center>
           <Icon name="logo" className="h-128px w-128px" />
           <h1 font-700 text-24px className="text-[var(--text-color)]">
             Yolk Accounting
           </h1>
         </div>
-        <form action="" w-full flex flex-col gap-28px justify-start>
+        <form
+          action=""
+          w-full
+          flex
+          flex-col
+          gap-28px
+          justify-start
+          onSubmit={handleSubmit}
+        >
           <label htmlFor="email" flex items-center gap-8px relative>
             <div flex items-center justify-center>
               <Icon
@@ -182,6 +216,7 @@ export default function SignInPage() {
             <button
               text-12px
               className="text-[var(--text-color)] font-700 h-48px w-2/5 border-1 border-solid border-[var(--text-color)] rounded-8px text-16px"
+              onClick={handleGetCode}
             >
               Get Code
             </button>
@@ -195,14 +230,14 @@ export default function SignInPage() {
               {errors.code?.[0]}
             </span>
           </label>
+          <button
+            text-16px
+            className="text-[var(--text-color)] font-700 h-48px w-full border-none rounded-8px bg-[var(--button-bg-color)]"
+            type="submit"
+          >
+            Sign In
+          </button>
         </form>
-        <button
-          text-16px
-          className="text-[var(--text-color)] font-700 h-48px w-full border-none rounded-8px bg-[var(--button-bg-color)]"
-          onClick={(e) => handleSubmit(e)}
-        >
-          Sign In
-        </button>
       </main>
     </div>
   );

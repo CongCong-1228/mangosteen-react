@@ -28,9 +28,9 @@ export const Home: React.FC<Props> = (props) => {
     async (path) => await http.get<Resources<Item>>(path)
   );
 
-  // if (itemsData?.resources[0]) {
-  //   return <Navigate to="/items" />;
-  // }
+  if (itemsData?.resources[0]) {
+    return <Navigate to="/items" />;
+  }
 
   if (isUserLoading || isItemsLoading) return <Loading className="h-screen" />;
 

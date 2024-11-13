@@ -3,6 +3,7 @@ import { Icon } from "./Icon";
 import { animated, useSpring } from "@react-spring/web";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { tr } from "@faker-js/faker/.";
 
 interface IProps {
   visible: boolean;
@@ -96,7 +97,7 @@ export const TopMenu: React.FC<IProps> = ({ visible, setVisible }) => {
         b-3px
       >
         <NavLink
-          to="/login_in"
+          to="/sign_in"
           className="bg-[var(--welcome-bg-color)] w-full text-[var(--text-color)] pt-32px pb-44px px-16px grow-0 shrink-0"
         >
           <h2 text-24px>未登录用户</h2>

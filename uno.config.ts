@@ -16,6 +16,7 @@ export default defineConfig({
     ["j-btn", "h-48px w-100% bg-#ffd580 b-none text-#4a4a4a rounded-8px"],
   ],
   safelist: [],
+  rules: [["h-screen", { height: "calc(100vh - var(--vh-offset, 0px))" }]],
   presets: [
     presetAttributify(),
     presetUno(),

@@ -14,7 +14,6 @@ const getKey = (
   pageIndex: number,
   previousPageData: Resources<Item> | null
 ) => {
-  console.log("pageIndex", pageIndex);
   if (previousPageData && !previousPageData.resources.length) return null; // 已经到最后一页
   return `/api/v1/items?page=${pageIndex + 1}&perPage=${10}`; // SWR key
 };

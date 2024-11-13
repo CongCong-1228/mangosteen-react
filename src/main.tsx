@@ -5,6 +5,9 @@ import { router } from "./routes/router";
 import "./global.scss";
 import "virtual:uno.css";
 import "virtual:svgsprites";
+import vhCheck from "vh-check";
+
+vhCheck();
 const div = document.getElementById("root") as HTMLElement;
 
 const root = ReactDOM.createRoot(div);

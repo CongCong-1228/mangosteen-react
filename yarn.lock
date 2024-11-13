@@ -3771,6 +3771,11 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
+vh-check@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.npmmirror.com/vh-check/-/vh-check-2.0.5.tgz#1b70610461e9776176f23d172daae3c4761aed09"
+  integrity sha512-vHtIYWt9uLl2P2tLlatVpMwv9+ezuJCtMNjUVIpzd5Pa/dJXN8AtqkKmVRcNSlmXyCjkCkbMQX/Vs9axmdlfgg==
+
 vite-plugin-mock@^3.0.2:
   version "3.0.2"
   resolved "https://registry.npmmirror.com/vite-plugin-mock/-/vite-plugin-mock-3.0.2.tgz#382446642661df5623023951670cb572cb5d682b"
