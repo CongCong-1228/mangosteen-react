@@ -16,7 +16,15 @@ export default defineConfig(({ command }) => ({
     react(),
     viteMockServe(),
     svgsprites({
-      noOptimizeList: ["noty", "category", "export", "chart", "logo", "email"],
+      noOptimizeList: [
+        "noty",
+        "category",
+        "export",
+        "chart",
+        "logo",
+        "email",
+        "calendar",
+      ],
     }),
   ],
   resolve: {

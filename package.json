@@ -23,8 +23,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "dev": "vite",
-    "build": "tsc && vite build --base=/mangosteen-react-preview/",
-    "preview": "vite preview"
+    "build": "vite build --base=/mangosteen-react-preview/",
+    "preview": "vite preview",
+    "deploy": "sh ./bin/deploy.sh"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.1",

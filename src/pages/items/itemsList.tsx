@@ -1,6 +1,6 @@
 import useSWRInfinite from "swr/infinite";
 import { http } from "../../request/http";
-import { Loading } from "@/components/Loading";
+import { Loading } from "@/components/common/Loading";
 import styled from "styled-components";
 
 interface IProps {}

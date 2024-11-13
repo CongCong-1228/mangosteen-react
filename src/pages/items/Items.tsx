@@ -1,29 +1,40 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import { TopNav } from "../../components/TopNav";
-import { TimeRange, TimeRangePicker } from "../../components/TimeRangePicker";
+import { TopNav } from "@/components/common/TopNav";
+import { Tabs } from "@/components/common/Tabs";
 import { ItemsSummary } from "./ItemsSummary";
 import { ItemsList } from "./itemsList";
-import { AddItemFloatButton } from "../../components/AddItemFloatButton";
-import { TopMenu } from "../../components/TopMenu";
+import { AddItemFloatButton } from "@/components/common/AddItemFloatButton";
+import { TopMenu } from "../../components/common/TopMenu";
 import { useMenuStore } from "../../stores/useMenuStore";
-import { Icon } from "@/components/Icon";
+import { Icon } from "@/components/common/Icon";
+import { Gradient } from "@/components/common/Gradient";
 
-const Div = styled.div`
-  background: linear-gradient(
-    0deg,
-    rgba(255, 213, 128, 1) 0%,
-    rgba(255, 211, 104, 1) 100%
-  );
-`;
 export const Items: React.FC = () => {
   const { visible, setVisible } = useMenuStore();
-  const [timeRange, setTimeRange] = useState<TimeRange>("thisMonth");
+  const [timeRange, setTimeRange] = useState("thisMonth");
+  const tabs = [
+    {
+      key: "thisMonth",
+      text: "本月",
+    },
+    {
+      key: "lastMonth",
+      text: "上月",
+    },
+    {
+      key: "thisYear",
+      text: "今年",
+    },
+    {
+      key: "custom",
+      text: "自定义",
+    },
+  ];
 
   return (
-    <div h-screen flex flex-col>
+    <div>
       <TopMenu visible={visible} setVisible={setVisible} />
-      <Div>
+      <Gradient>
         <TopNav
           title="Accounting List"
           icon={
@@ -36,8 +47,8 @@ export const Items: React.FC = () => {
             />
           }
         />
-        <TimeRangePicker value={timeRange} onChange={setTimeRange} />
-      </Div>
+        <Tabs tabs={tabs} value={timeRange} onChange={setTimeRange} />
+      </Gradient>
       <ItemsSummary />
       <ItemsList />
       <AddItemFloatButton />

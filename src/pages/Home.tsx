@@ -4,9 +4,9 @@ import add from "@/assets/icons/add.svg";
 import { http } from "@/request/http";
 import { useTitle } from "@/hooks/useTitle";
 import { Navigate } from "react-router-dom";
-import { Loading } from "@/components/Loading";
-import { Icon } from "@/components/Icon";
-import { AddItemFloatButton } from "@/components/AddItemFloatButton";
+import { Loading } from "@/components/common/Loading";
+import { Icon } from "@/components/common/Icon";
+import { AddItemFloatButton } from "@/components/common/AddItemFloatButton";
 interface Props {
   title: string;
 }

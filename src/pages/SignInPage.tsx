@@ -1,4 +1,4 @@
-import { Icon } from "@/components/Icon";
+import { Icon } from "@/components/common/Icon";
 import { http } from "@/request/http";
 import {
   validate,
@@ -8,15 +8,7 @@ import {
   Rules,
   Data,
 } from "@/utils/validate";
-import { fi } from "@faker-js/faker/.";
-import { F, r } from "@faker-js/faker/dist/airline-C5Qwd7_q";
-import {
-  FormEvent,
-  FormEventHandler,
-  MouseEvent,
-  useEffect,
-  useState,
-} from "react";
+import { FormEvent, FormEventHandler, MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 type FormData = {

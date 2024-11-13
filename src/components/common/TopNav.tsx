@@ -1,6 +1,4 @@
 import { ReactNode } from "react";
-import { useMenuStore } from "../stores/useMenuStore";
-import { Icon } from "./Icon";
 
 interface IProps {
   title?: string;

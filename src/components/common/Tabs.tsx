@@ -1,36 +1,20 @@
-import { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-export type TimeRange = "thisMonth" | "lastMonth" | "thisYear" | "custom";
+export type Tab = string;
 
 interface IProps {
-  value: TimeRange;
-  onChange: (value: TimeRange) => void;
+  value: Tab;
+  onChange: (value: Tab) => void;
+  tabs: { key: string; text: string; element: ReactNode }[];
+  className?: string;
 }
-
-const TimeRanges: { key: TimeRange; text: string }[] = [
-  {
-    key: "thisMonth",
-    text: "本月",
-  },
-  {
-    key: "lastMonth",
-    text: "上月",
-  },
-  {
-    key: "thisYear",
-    text: "今年",
-  },
-  {
-    key: "custom",
-    text: "自定义",
-  },
-];
 
 const Div = styled.div`
   width: 100%;
-  position: relative;
-  &::after {
+  display: flex;
+  flex-direction: column;
+  /* &::after {
     content: "";
     display: block;
     width: 100%;
@@ -40,11 +24,17 @@ const Div = styled.div`
     bottom: 0;
     left: 0;
     opacity: 0.5;
-  }
+  } */
 `;
 
 const Li = styled.li`
   position: relative;
+  flex-shrink: 1;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
   &.selected {
     position: relative;
   }
@@ -53,7 +43,7 @@ const Li = styled.li`
     display: block;
     width: 100%;
     height: 3px;
-    background-color: red;
+    background-color: #f5dd65;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -63,7 +53,7 @@ const Li = styled.li`
 
 const LiActiveBar = styled.div`
   height: 3px;
-  background-color: var(--text-color);
+  background-color: #f5dd65;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -72,12 +62,17 @@ const LiActiveBar = styled.div`
   transition: 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
 `;
 
-export const TimeRangePicker: React.FC<IProps> = ({ value, onChange }) => {
+export const Tabs: React.FC<IProps> = ({
+  value,
+  onChange,
+  tabs,
+  className,
+}) => {
   const liRefs = useRef<HTMLUListElement>(null);
   const liActiveBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const index = TimeRanges.findIndex((timeRange) => timeRange.key === value);
+    const index = tabs.findIndex((tab) => tab.key === value);
     const li = liRefs.current?.children[index] as HTMLElement;
     const liRect = li.getBoundingClientRect();
     const liLeft = liRect.left;
@@ -87,22 +82,25 @@ export const TimeRangePicker: React.FC<IProps> = ({ value, onChange }) => {
   }, [value]);
 
   return (
-    <Div>
+    <Div className={className}>
       <ul
         ref={liRefs}
-        className="text-[var(--text-color)] cursor-pointer items-center flex relative children:px-24px children:py-12px"
+        className="relative shrink-0 grow-0 text-[var(--text-color)] cursor-pointer items-center flex relative "
       >
-        {TimeRanges.map((timeRange, index) => (
+        {tabs.map((tab, index) => (
           <Li
-            key={timeRange.key}
-            className={timeRange.key === value ? "selected" : ""}
-            onClick={() => onChange(timeRange.key)}
+            key={tab.key}
+            className={tab.key === value ? "selected" : ""}
+            onClick={() => onChange(tab.key)}
           >
-            {timeRange.text}
+            {tab.text}
           </Li>
         ))}
+        <LiActiveBar ref={liActiveBarRef} />
       </ul>
-      <LiActiveBar ref={liActiveBarRef} />
+      <div shrink-1 grow-1 overflow-auto>
+        {tabs.find((tab) => tab.key === value)?.element}
+      </div>
     </Div>
   );
 };

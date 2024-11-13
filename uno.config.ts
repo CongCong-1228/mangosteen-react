@@ -9,7 +9,14 @@ import {
 } from "unocss";
 
 export default defineConfig({
-  theme: {},
+  theme: {
+    extend: {
+      gridTemplateColumns: {
+        "auto-fill": "repeat(auto-fill, minmax(0, 1fr))",
+        "auto-fit": "repeat(auto-fit, minmax(48px, 1fr))",
+      },
+    },
+  },
   shortcuts: [
     ["flex-center", "flex justify-center items-center"],
     ["flex-col-center", "flex-center flex-col"],

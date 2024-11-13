@@ -9,6 +9,7 @@ import { NotFoundPage } from "@/pages/NotFoundPage";
 import { Home } from "@/pages/Home";
 import { Items } from "@/pages/items/Items";
 import SignInPage from "@/pages/SignInPage";
+import { NewItem } from "@/pages/NewItem";
 
 export const router = createBrowserRouter([
   {
@@ -65,5 +66,9 @@ export const router = createBrowserRouter([
   {
     path: "/noty",
     element: <div>noty</div>,
+  },
+  {
+    path: "/new_item",
+    element: <NewItem />,
   },
 ]);
