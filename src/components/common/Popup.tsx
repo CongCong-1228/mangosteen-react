@@ -16,7 +16,7 @@ const PopupMask = styled.div<{ $visible: boolean }>`
 `;
 
 const transformMap = (
-  direction: "left" | "right" | "bottom" | "top",
+  direction: "left" | "right" | "bottom" | "top" | "center",
   visible?: boolean
 ) => {
   if (direction === "left" || direction === "right") {
@@ -25,45 +25,54 @@ const transformMap = (
         visible ? "0%" : direction === "left" ? "-100%" : "100%"
       })`,
       height: "100%",
-      width: "30%",
+      bottom: 0,
+    };
+  } else if (direction === "bottom" || direction === "top") {
+    return {
+      transform: `translateY(${
+        visible ? "0%" : direction === "bottom" ? "100%" : "-100%"
+      })`,
+      ...(direction === "bottom" ? { bottom: 0 } : { top: 0 }),
+      width: "100%",
+    };
+  } else {
+    return {
+      transform: `translate3d(-50%, -50%, 0)`,
+      top: "50%",
+      left: "50%",
+      opacity: visible ? 1 : 0,
     };
   }
-  return {
-    transform: `translateY(${
-      visible ? "0%" : direction === "bottom" ? "100%" : "-100%"
-    })`,
-    height: "20%",
-    width: "100%",
-  };
 };
 
 const PopupContainer = styled.div<{
-  direction: "left" | "right" | "bottom" | "top";
+  direction: "left" | "right" | "bottom" | "top" | "center";
   $visible: boolean;
 }>`
-  inset: 0;
   position: absolute;
-  animation-fill-mode: forwards;
   display: flex;
   padding: 16px 12px;
   background-color: #fff;
   z-index: 1001;
-  transition: transform 0.3s ease-in-out;
-  transform: ${({ direction, $visible }) =>
-    transformMap(direction, $visible).transform};
-  ${({ direction }) => direction && `${direction}: 0;`}
-  ${({ direction }) =>
-    `height: ${transformMap(direction).height}; width: ${
-      transformMap(direction).width
-    };`}
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  ${({ direction, $visible }) =>
+    `transform: ${transformMap(direction, $visible).transform};
+     bottom: ${transformMap(direction, $visible)?.bottom};
+     top: ${transformMap(direction, $visible)?.top};
+     left: ${transformMap(direction, $visible)?.left};
+     opacity: ${transformMap(direction, $visible)?.opacity};
+     height: ${transformMap(direction, $visible)?.height};
+     width: ${transformMap(direction, $visible)?.width};
+     `};
 `;
 
 export const Popup: React.FC<{
   visible: boolean;
+  className?: string;
   children: React.ReactNode;
-  direction?: "left" | "right" | "bottom" | "top";
+  direction?: "left" | "right" | "bottom" | "top" | "center";
   setVisible: (visible: boolean) => void;
-}> = ({ visible, children, direction = "bottom", setVisible }) => {
+}> = ({ visible, className, children, direction = "bottom", setVisible }) => {
   const [animatedVisible, setAnimatedVisible] = useState<boolean>(false);
 
   useEffect(() => {
@@ -85,7 +94,11 @@ export const Popup: React.FC<{
       {visible ? (
         <>
           <PopupMask $visible={animatedVisible} onClick={closePopup} />
-          <PopupContainer $visible={animatedVisible} direction={direction}>
+          <PopupContainer
+            className={className}
+            $visible={animatedVisible}
+            direction={direction}
+          >
             {children}
           </PopupContainer>
         </>

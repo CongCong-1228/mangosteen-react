@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Icon } from "@/components/common/Icon";
 import { useState } from "react";
 import { Popup } from "../common/Popup";
+import { DateTimePicker } from "../common/DateTimePicker";
 
 const Div = styled.div`
   display: grid;
@@ -101,9 +102,9 @@ export const DateAndAmount: React.FC<{ className?: string }> = ({
       <Popup
         visible={datePopupVisible}
         setVisible={setDatePopupVisible}
-        direction="left"
+        direction="bottom"
       >
-        <div>日期选择</div>
+        <DateTimePicker />
       </Popup>
     </div>
   );
