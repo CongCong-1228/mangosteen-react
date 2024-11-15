@@ -9,7 +9,7 @@ const Ol = styled.ol`
   grid-template-columns: repeat(auto-fit, minmax(48px, 1fr));
 `;
 
-export const Tags: React.FC = () => {
+export const Tags: React.FC<{ type: "pay" | "income" }> = ({ type }) => {
   const tags = Array.from({ length: 32 });
   return (
     <div>

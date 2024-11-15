@@ -16,18 +16,27 @@ export const Items: React.FC = () => {
     {
       key: "thisMonth",
       text: "本月",
+      element: (
+        <>
+          <ItemsSummary />
+          <ItemsList />
+        </>
+      ),
     },
     {
       key: "lastMonth",
       text: "上月",
+      element: <>上月</>,
     },
     {
       key: "thisYear",
       text: "今年",
+      element: <>今年</>,
     },
     {
       key: "custom",
       text: "自定义",
+      element: <>自定义</>,
     },
   ];
 
@@ -47,10 +56,10 @@ export const Items: React.FC = () => {
             />
           }
         />
-        <Tabs tabs={tabs} value={timeRange} onChange={setTimeRange} />
       </Gradient>
-      <ItemsSummary />
-      <ItemsList />
+      <Tabs tabs={tabs} value={timeRange} onChange={setTimeRange} />
+      {/* <ItemsSummary /> */}
+      {/* <ItemsList /> */}
       <AddItemFloatButton />
     </div>
   );

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Icon } from "@/components/common/Icon";
+import { useState } from "react";
+import { Popup } from "../common/Popup";
 
 const Div = styled.div`
   display: grid;
@@ -12,11 +14,19 @@ const Div = styled.div`
   border: 1px solid #ddd;
   border-left: none;
   border-right: none;
+  :nth-child(n) {
+    background-color: #fff;
+  }
 `;
 
 export const DateAndAmount: React.FC<{ className?: string }> = ({
   className,
 }) => {
+  const [date, setDate] = useState(new Date());
+  const [datePopupVisible, setDatePopupVisible] = useState<boolean>(false);
+  const handleDateClick = () => {
+    setDatePopupVisible(true);
+  };
   return (
     <div className={className}>
       <div
@@ -30,7 +40,14 @@ export const DateAndAmount: React.FC<{ className?: string }> = ({
         border-t="#ddd"
         bg="#fff"
       >
-        <div flex items-center gap-8px shrink-0 grow-0>
+        <div
+          flex
+          items-center
+          gap-8px
+          shrink-0
+          grow-0
+          onClick={handleDateClick}
+        >
           <Icon name="calendar" className="w-32px h-32px" />
           <span text-12px text="#999">
             2020-01-01
@@ -40,7 +57,7 @@ export const DateAndAmount: React.FC<{ className?: string }> = ({
           123456789
         </div>
       </div>
-      <Div children-bg="#fff">
+      <Div>
         <button row-start-1 col-start-1 row-end-2 col-end-2>
           1
         </button>
@@ -81,20 +98,13 @@ export const DateAndAmount: React.FC<{ className?: string }> = ({
           OK
         </button>
       </Div>
+      <Popup
+        visible={datePopupVisible}
+        setVisible={setDatePopupVisible}
+        direction="left"
+      >
+        <div>日期选择</div>
+      </Popup>
     </div>
   );
 };
-
-// .div1 { grid-area: 1 / 1 / 2 / 2; }
-// .div2 { grid-area: 1 / 2 / 2 / 3; }
-// .div3 { grid-area: 1 / 3 / 2 / 4; }
-// .div4 { grid-area: 2 / 1 / 3 / 2; }
-// .div5 { grid-area: 2 / 2 / 3 / 3; }
-// .div6 { grid-area: 2 / 3 / 3 / 4; }
-// .div7 { grid-area: 3 / 1 / 4 / 2; }
-// .div8 { grid-area: 3 / 2 / 4 / 3; }
-// .div9 { grid-area: 3 / 3 / 4 / 4; }
-// .div10 { grid-area: 4 / 1 / 5 / 3; }
-// .div11 { grid-area: 4 / 3 / 5 / 4; }
-// .div12 { grid-area: 1 / 4 / 3 / 5; }
-// .div13 { grid-area: 3 / 4 / 5 / 5; }

@@ -14,11 +14,27 @@ const Div = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* &::after {
+`;
+
+const Ul = styled.ul`
+  background-image: radial-gradient(
+    circle 763px at 18.3% 24.1%,
+    rgba(255, 249, 137, 1) 7.4%,
+    rgba(226, 183, 40, 1) 58.3%
+  );
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
+
+  /* position: relative;
+
+  &::after {
     content: "";
     display: block;
     width: 100%;
-    height: 3px;
+    height: 1px;
     background-color: var(--text-color);
     position: absolute;
     bottom: 0;
@@ -35,7 +51,7 @@ const Li = styled.li`
   align-items: center;
   justify-content: center;
   padding: 12px 24px;
-  &.selected {
+  /* &.selected {
     position: relative;
   }
   &.selected::after {
@@ -43,17 +59,17 @@ const Li = styled.li`
     display: block;
     width: 100%;
     height: 3px;
-    background-color: #f5dd65;
+    background-color: #999;
     position: absolute;
     bottom: 0;
     left: 0;
     opacity: 0.5;
-  }
+  } */
 `;
 
 const LiActiveBar = styled.div`
   height: 3px;
-  background-color: #f5dd65;
+  background-color: #ffae00;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -83,10 +99,7 @@ export const Tabs: React.FC<IProps> = ({
 
   return (
     <Div className={className}>
-      <ul
-        ref={liRefs}
-        className="relative shrink-0 grow-0 text-[var(--text-color)] cursor-pointer items-center flex relative "
-      >
+      <Ul ref={liRefs}>
         {tabs.map((tab, index) => (
           <Li
             key={tab.key}
@@ -97,7 +110,7 @@ export const Tabs: React.FC<IProps> = ({
           </Li>
         ))}
         <LiActiveBar ref={liActiveBarRef} />
-      </ul>
+      </Ul>
       <div shrink-1 grow-1 overflow-auto>
         {tabs.find((tab) => tab.key === value)?.element}
       </div>

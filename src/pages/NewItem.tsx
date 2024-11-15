@@ -7,17 +7,17 @@ import { Icon } from "@/components/common/Icon";
 import { DateAndAmount } from "@/components/newItem/DateAndAmount";
 
 export const NewItem: React.FC = () => {
-  const [timeRange, setTimeRange] = useState("pay");
+  const [tab, setTab] = useState("pay");
   const tabs = [
     {
       key: "pay",
       text: "Pay",
-      element: <Tags />,
+      element: <Tags type="pay" />,
     },
     {
       key: "income",
       text: "Income",
-      element: <div>Income</div>,
+      element: <Tags type="income" />,
     },
   ];
 
@@ -25,18 +25,16 @@ export const NewItem: React.FC = () => {
     <div relative h-screen flex flex-col>
       <Gradient>
         <TopNav
-          title="New Account"
+          title="New Bill"
           icon={<Icon name="back" className="w-24px h-24px mr-16px" />}
         />
       </Gradient>
       <Tabs
         tabs={tabs}
-        value={timeRange}
-        onChange={setTimeRange}
+        value={tab}
+        onChange={setTab}
         className="shrink-1 grow-1 overflow-hidden"
       />
-
-      {/* <Tags /> */}
       <DateAndAmount className="shrink-0 grow-0" />
     </div>
   );
