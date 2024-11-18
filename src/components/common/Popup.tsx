@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Portal } from "./Portal";
 import { useTransition, animated, to } from "@react-spring/web";
 import { useEffect, useRef, useState } from "react";
+import { dir } from "console";
 
 const PopupMask = styled.div<{ $visible: boolean }>`
   position: fixed;
@@ -51,19 +52,21 @@ const PopupContainer = styled.div<{
 }>`
   position: absolute;
   display: flex;
-  padding: 16px 12px;
   background-color: #fff;
   z-index: 1001;
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  width: ${({ direction }) =>
+    direction === "bottom" || direction === "top" ? "100%" : "max-content"};
+  height: ${({ direction }) =>
+    direction === "left" || direction === "right" ? "100%" : "max-content"};
   ${({ direction, $visible }) =>
-    `transform: ${transformMap(direction, $visible).transform};
-     bottom: ${transformMap(direction, $visible)?.bottom};
-     top: ${transformMap(direction, $visible)?.top};
-     left: ${transformMap(direction, $visible)?.left};
-     opacity: ${transformMap(direction, $visible)?.opacity};
-     height: ${transformMap(direction, $visible)?.height};
-     width: ${transformMap(direction, $visible)?.width};
-     `};
+    `
+    transform: ${transformMap(direction, $visible).transform};
+    bottom: ${transformMap(direction, $visible)?.bottom};
+    top: ${transformMap(direction, $visible)?.top};
+    left: ${transformMap(direction, $visible)?.left};
+    opacity: ${transformMap(direction, $visible)?.opacity};
+  `};
 `;
 
 export const Popup: React.FC<{
