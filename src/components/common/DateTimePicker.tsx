@@ -1,3 +1,4 @@
+import { tr } from "@faker-js/faker/.";
 import { TouchEventHandler, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -18,7 +19,7 @@ const Column = styled.ol`
   align-items: center;
   transition: transform 0.3s ease-in-out;
   transition-duration: 0ms;
-  transition-property: none;
+  transition-property: all;
   z-index: 2;
 `;
 
@@ -48,49 +49,46 @@ const HairLine = styled.div<{ $height: number; $visibleItemCount: number }>`
 export const DateTimePicker: React.FC<{
   itemHeight?: number;
   visibleItemCount?: number;
-}> = ({ itemHeight = 50, visibleItemCount = 9 }) => {
+}> = ({ itemHeight = 44, visibleItemCount = 9 }) => {
   const columnRef = useRef<HTMLOListElement>(null);
-  const startY = useRef(0);
-  const [translateY, setTranslateY] = useState(0);
+  const lastY = useRef(0);
+  const [translateY, _setTranslateY] = useState(0);
   const [isMoving, setIsMoving] = useState(false);
+
+  const setTranslateY = (y: number) => {
+    console.log("y-1", y);
+    y = Math.min(y, 0);
+    y = Math.max(y, (14 - 1) * -itemHeight);
+    console.log("y", y);
+    _setTranslateY(y);
+  };
 
   const onTouchStart = (e: React.TouchEvent) => {
     e.stopPropagation();
-    startY.current = e.touches[0].clientY;
+    // 起始位置
+    lastY.current = e.touches[0].clientY;
     setIsMoving(true);
   };
   const onTouchMove = (e: React.TouchEvent<HTMLOListElement>) => {
     e.stopPropagation();
-    const moveY = e.touches[0].clientY - startY.current;
-    if (isMoving && columnRef.current) {
-      columnRef.current.style.transform = `translateY(${translateY + moveY}px)`;
+    const y = e.touches[0].clientY;
+    if (isMoving) {
+      const moveY = y - lastY.current;
+      setTranslateY(moveY + translateY);
+      lastY.current = y;
     }
   };
 
   const onTouchEnd = (e: React.TouchEvent<HTMLOListElement>) => {
     e.stopPropagation();
-    console.log("e.changedTouches[0].clientY", e.changedTouches[0].clientY);
-    setTranslateY(e.changedTouches[0].clientY - startY.current);
-    // if (Math.abs(translateY) <= 10) {
-    //   setTranslateY(0);
-    // }
-    // if (Math.abs(translateY) <= itemHeight && Math.abs(translateY) > 10) {
-    //   setTranslateY(translateY > 0 ? itemHeight : -itemHeight);
-    // }
-    // if (Math.abs(translateY) > itemHeight) {
-    //   const translateN = Math.floor(translateY / itemHeight);
-    //   console.log("translateN", translateN);
-    //   setTranslateY(translateN * itemHeight);
-    // }
+    const remainder = translateY % itemHeight;
+    let y = translateY - remainder;
+    if (Math.abs(remainder) > itemHeight / 2) {
+      y += remainder > 0 ? itemHeight : -itemHeight;
+    }
+    setTranslateY(y);
     setIsMoving(false);
   };
-
-  // useEffect(() => {
-  //   console.log("translateY", translateY);
-  //   if (columnRef.current) {
-  //     columnRef.current.style.transform = `translateY(${translateY}px)`;
-  //   }
-  // }, [translateY]);
 
   return (
     <div bg="#fff" flex flex-col items-center w-full px-12px pt-16px>
@@ -120,6 +118,7 @@ export const DateTimePicker: React.FC<{
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
+          style={{ transform: `translateY(${translateY}px)` }}
         >
           <Li $height={itemHeight}>2024</Li>
           <Li $height={itemHeight}>2023</Li>
