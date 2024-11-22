@@ -56,10 +56,8 @@ export const DateTimePicker: React.FC<{
   const [isMoving, setIsMoving] = useState(false);
 
   const setTranslateY = (y: number) => {
-    console.log("y-1", y);
     y = Math.min(y, 0);
-    y = Math.max(y, (14 - 1) * -itemHeight);
-    console.log("y", y);
+    y = Math.max(y, 14 * -itemHeight);
     _setTranslateY(y);
   };
 
